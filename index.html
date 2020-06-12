@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Technology Workshop</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+  <link type="text/css" rel="stylesheet" href="./css/main.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+    crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <div id="blocker">
+    <div id="instructions">
+      <span style="font-size:36px">Click to move</span>
+      <br /><br />
+      Move: WASD<br />
+      Jump: SPACE<br />
+      Look: MOUSE
+    </div>
+  </div>
+  <div id="hud" style="display: none;">+</div>
+  <div class="card" id='card-info'>
+    <div class="card-body">
+      <div id="sizePicker" style="padding: 15px;">
+        <div class="row">
+          <div class="col-md-8">
+            <div class="row" style="margin-bottom: 5px;">
+              <div class="col-md-8">Grid Height:</div>
+              <div class="col-md-4" style="max-width: 50px !important;">
+                <input type="number" id="input_height" name="height" min="1" value="10" required>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-8">Grid Width:</div>
+              <div class="col-md-4">
+                <input type="number" id="input_width" name="width" min="1" value="10" required>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary" data-toggle="modal" id="show-map" data-target="#mapModal">
+              Create map
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="sky-texture">Sky</span>
+        </div>
+        <div class="custom-file">
+          <input type="file" class="custom-file-input" id="sky-texture-file" aria-describedby="sky-texture">
+          <label class="custom-file-label" for="sky-texture-file">...</label>
+        </div>
+      </div>
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="floor-texture">Floor</span>
+        </div>
+        <div class="custom-file">
+          <input type="file" class="custom-file-input" id="floor-texture-file" aria-describedby="floor-texture">
+          <label class="custom-file-label" for="floor-texture-file">...</label>
+        </div>
+      </div>
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="wall-texture">Wall</span>
+        </div>
+        <div class="custom-file">
+          <input type="file" class="custom-file-input" id="wall-texture-file" aria-describedby="wall-texture">
+          <label class="custom-file-label" for="wall-texture-file">...</label>
+        </div>
+      </div>
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="photo-texture">Photo</span>
+        </div>
+        <div class="custom-file">
+          <input type="file" class="custom-file-input" id="photo-texture-file" aria-describedby="photo-texture">
+          <label class="custom-file-label" for="photo-texture-file">...</label>
+        </div>
+      </div>
+
+      <div style="text-align: center !important;">
+        <button type="button" id="export-file" class="btn btn-info">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+
+  <div class="modal fade" id="mapModal" tabindex="-1" role="dialog" aria-labelledby="mapModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="mapModalLabel">Create map</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <table id="pixel_canvas"></table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" id="btn-create-map">Create</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="main.js" type="module"></script>
+  <script>
+    function cellClicked(t){
+      var ls = t.getAttribute("data").split("-");
+      var i = parseInt(ls[0]);
+      var j = parseInt(ls[1]);
+      console.log(i, j);
+      window.tempMap[i][j] = 1;
+      console.log(window.tempMap);
+      t.setAttribute("style", "background-color: black")
+    }
+  </script>
+
+</body>
+
+</html>
